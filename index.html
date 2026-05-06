@@ -1,1 +1,378 @@
-<h1>Coming soon</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mosibosi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inconsolata:wght@300;400&family=Nunito:wght@200;300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #18160f;
+      --fg: #ede9e0;
+      --muted: #7a7570;
+      --accent: #c8a97e;
+      --rule: #2c2a24;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 clamp(1.5rem, 6vw, 5rem);
+      overflow-x: hidden;
+    }
+
+    .page-wrap {
+      width: 100%;
+      max-width: 780px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* — grain overlay — */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.6;
+    }
+
+    /* — header — */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: clamp(2rem, 5vw, 3.5rem) 0 0;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1.25rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.1s;
+    }
+
+    .wordmark {
+      font-family: 'Inconsolata', monospace;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      text-transform: lowercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* — main — */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(4rem, 12vh, 8rem) 0;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+      font-weight: 200;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.45s;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.35em;
+      width: 100%;
+    }
+
+    h1 .word-main {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 200;
+      font-style: normal;
+      color: var(--fg);
+    }
+
+    h1 .word-bridge {
+      font-family: 'Inconsolata', monospace;
+      font-weight: 400;
+      font-size: 0.7em;
+      letter-spacing: 0.18em;
+      color: #a8a49c;
+      text-transform: lowercase;
+      position: relative;
+      top: -0.1em;
+    }
+
+    h1 .word-arrival {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 200;
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .body-text {
+      font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+      line-height: 1.8;
+      color: rgba(232, 228, 220, 0.75);
+      width: 100%;
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      text-align: justify;
+      animation: fadeUp 0.9s ease forwards 0.6s;
+    }
+
+    /* — vertical list — */
+    .verticals {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 4rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.75s;
+    }
+
+    .vertical-item {
+      display: flex;
+      align-items: baseline;
+      gap: 1.25rem;
+      padding: 0.85rem 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .vertical-item:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .v-index {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.9rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      min-width: 2rem;
+    }
+
+    .v-name {
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      flex: 1;
+    }
+
+    .v-status {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .v-status.live {
+      color: var(--accent);
+    }
+
+    /* — square divider — */
+    .square-rule {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 5px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.55s;
+      overflow: hidden;
+    }
+
+    .sq {
+      width: 7px;
+      height: 7px;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* — contact — */
+    .contact-block {
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.9s;
+      text-align: right;
+    }
+
+    .contact-block p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-family: 'Inconsolata', monospace;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+
+    .contact-block a {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--accent);
+      padding-bottom: 1px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .contact-block a:hover {
+      color: var(--fg);
+      border-color: var(--fg);
+    }
+
+    /* — footer — */
+    footer {
+      padding: 1.5rem 0 2rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 1.05s;
+    }
+
+    footer span {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.9rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* — animations — */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* — responsive — */
+    @media (max-width: 600px) {
+      .tagline { display: none; }
+      .v-status { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <header>
+    <a class="wordmark" href="/">mosibosi</a>
+  </header>
+
+  <main>
+    <h1>
+      <span class="word-main">Uncertainty</span>
+      <span class="word-bridge">transformed into</span>
+      <span class="word-arrival">infrastructure.</span>
+    </h1>
+
+    <div class="square-rule" id="squareRule"></div>
+
+    <p class="body-text">
+      Mosibosi builds where the problem is structural,
+      the tooling is absent, and the cost of inaction is already measurable.
+      We work at the intersection of cryptography, security infrastructure,
+      and the systems that hold critical operations together.
+    </p>
+
+    <div class="verticals">
+      <div class="vertical-item">
+        <span class="v-index">01</span>
+        <span class="v-name">Cryptography &amp; Security Infrastructure</span>
+        <span class="v-status live">Active</span>
+      </div>
+      <div class="vertical-item">
+        <span class="v-index">02</span>
+        <span class="v-name">Art &amp; Education</span>
+        <span class="v-status">Forthcoming</span>
+      </div>
+    </div>
+
+    <div class="contact-block">
+      <p>Get in touch</p>
+      <a href="mailto:hello@mosibosi.com">hello@mosibosi.com</a>
+    </div>
+  </main>
+
+  <footer>
+    <span>Mosibosi Studio</span>
+    <span>Est. 2025</span>
+  </footer>
+
+</div>
+<script>
+  // Gradient: accent (warm gold) → muted (cool grey) → fg (pale cream)
+  // Left = "structure" warmth, Right = "edge" coolness
+  const el = document.getElementById('squareRule');
+  // Fill the container width dynamically
+  const containerWidth = el.parentElement.offsetWidth || 780;
+  const sqSize = 7;
+  const sqGap = 5;
+  const count = Math.floor(containerWidth / (sqSize + sqGap));
+
+  // Gradient: LEFT = uncertainty (dark, almost invisible)
+  //           MID  = transition (cool grey)
+  //           RIGHT = structure (warm gold / accent)
+  const stops = [
+    { r: 42,  g: 40,  b: 36  }, // near-bg, barely visible
+    { r: 90,  g: 86,  b: 80  }, // muted grey
+    { r: 200, g: 169, b: 126 }, // accent gold
+  ];
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function colorAt(t) {
+    // two-segment gradient across stops
+    if (t < 0.5) {
+      const s = t / 0.5;
+      return {
+        r: lerp(stops[0].r, stops[1].r, s),
+        g: lerp(stops[0].g, stops[1].g, s),
+        b: lerp(stops[0].b, stops[1].b, s),
+      };
+    } else {
+      const s = (t - 0.5) / 0.5;
+      return {
+        r: lerp(stops[1].r, stops[2].r, s),
+        g: lerp(stops[1].g, stops[2].g, s),
+        b: lerp(stops[1].b, stops[2].b, s),
+      };
+    }
+  }
+
+  for (let i = 0; i < count; i++) {
+    const t = i / (count - 1);
+    const c = colorAt(t);
+    const sq = document.createElement('span');
+    sq.className = 'sq';
+    sq.style.background = `rgb(${Math.round(c.r)},${Math.round(c.g)},${Math.round(c.b)})`;
+    el.appendChild(sq);
+  }
+</script>
+</body>
